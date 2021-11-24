@@ -3,6 +3,7 @@ The DBMS used in this program is MySQL or PostgreSQL, make sure your computer in
 1. Modify the database username and password in config.py
 
 For mysql: 'mysql+pymysql://root:password@127.0.0.1:3306/database_name'
+
 For postgresql: 'postgresql://postgres:password@localhost:5433/database_name'
 
 2. Reset elements in database by:
