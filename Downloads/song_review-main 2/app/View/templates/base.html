@@ -1,0 +1,22 @@
+<html>
+    <head>
+            <title>  Music  </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+        </head>
+
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class = "flash-container"> {{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            {% block content %} {% endblock %}
+        </div>
+        
+
+    </body>
+</html>

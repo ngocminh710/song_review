@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block content %}
+<main id="main">
+    <div  class="demo">
+        <a href="{{ url_for('routes.index') }}" class = "btn btn-default" > Home  </a>
+        {% if session.user_name == NULL %}
+            <div>
+                <a href="{{ url_for('authentication.register') }}" class = "btn btn-default"  > Sign Up </a>
+            </div>
+            <div>
+                <a href="{{ url_for('authentication.login') }}" class = "btn btn-default"  >Login</a>
+            </div>
+        {% else %}
+            <div>
+                <a href="{{ url_for('routes.home') }}" class = "btn btn-default"  >Welcome: {{ session.user_name }}</a>
+            </div>
+        {% endif %}
+    </div>
+    <h2>Welcome  {{session.user_name}} ! </h2>
+
+    <div class="row row-no-gutter">
+        <div class="row row-no-gutter">
+            <div class="col-md-2" style = "padding-left:20px;">
+            <h2 style = "padding-left: 20px;"> Song Information</h2>
+                <li>Song Name: {{thesong.songname}}</li>
+                <li>Artist: {{thesong.songart.name}}</li>
+                <li>Length: {{thesong.length}}</li>
+                <li>Album: {{thesong.songalbum.name}}</li>  
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-6" >
+            <h2>Reviews</h2>
+            <h5>See what people think about this song</h5>
+                <table class="table table-striped table-hover table-responsive",style="overflow:scroll;">
+                <thead>
+                <tr>    
+                    <th>User Name</th>
+                    <th>TimePosted</th>
+                    <th>Content</th>
+                    <th>Rate</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in reviewlist %}
+                <tr>
+                <td>{{row.username}}</td>
+                <td>{{row.timeposted}}</td>
+                <td>{{row.content}}</td>
+                <td>{{row.rating}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            
+    
+                <div>
+                {% if session.user_name == NULL %}
+                    <div>
+                        <p>Login or Sing up to Review!</p>
+                    </div>
+                {% else %}
+                    <div>
+                        <form name="form" class="form-inline" action="/createreview?songid={{thesong.songid}}" method="post">
+                            {{ form.csrf_token }}
+                            <div>
+                            {{ form.comment.label }}
+                            {{ form.comment(class="form-control")  }}
+                            </div>
+                            <br>
+                            <div>
+                            {{ form.rating.label }}
+                            {{ form.rating(class="form-control")  }}
+                            {{ form.submit(class="btn btn-default") }}</div>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+    </div>
+    <div class="row">
+
+
+
+    </div>
+<style>
+.demo{
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-pack:justify;
+    -webkit-justify-content:space-between;
+    -ms-flex-pack:justify;
+    justify-content:space-between;
+}
+</style>
+
+</main>
+{% endblock %}
